@@ -5,25 +5,21 @@ class NoteMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.amberAccent,
-        leading: const Icon(Icons.edit),
-        title: const Text('Quick Quill',
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+    return const Center(child: Text("Note Page"));
+  }
+}class SchedulingPage extends StatelessWidget {
+  const SchedulingPage({super.key});
 
-        ),
-        actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.account_circle),),
-        ],
-      ),
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text("SchedulingPage"));
+  }
+}class MoodJournalingPage extends StatelessWidget {
+  const MoodJournalingPage({super.key});
 
-    );
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text("MoodJournalingPage"));
   }
 }
-
 
