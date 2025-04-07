@@ -17,17 +17,17 @@ class NoteMain extends StatefulWidget {
 class _NoteMainState extends State<NoteMain> {
   bool _showColorOptions = false;
   final List<Color> _noteColors = [
-    Colors.red,
-    Colors.green,
-    Colors.blue,
-    Colors.yellow,
-    Colors.purple,
+    Colors.pinkAccent,
+    Colors.deepOrangeAccent,
+    Colors.amberAccent,
+    Colors.cyanAccent,
+    Colors.purpleAccent,
     ];
   Color? _selectedColor;
   final List<Note> _notes = [
-    Note(content: 'Note 1', color: Colors.red),
-    Note(content: 'Note 2', color: Colors.green),
-    Note(content: 'Note 3', color: Colors.blue),
+    Note(content: 'Note 1', color: Colors.cyanAccent),
+    Note(content: 'Note 2', color: Colors.deepOrangeAccent),
+    Note(content: 'Note 3', color: Colors.pinkAccent),
   ];
   void _toggleColorOptions() {
     setState(() {
@@ -128,25 +128,33 @@ class _NoteMainState extends State<NoteMain> {
     spacing: 8,
     runSpacing: 8,
     children: _notes
-        .map((note)=> SizedBox(
-    width: 200,
-    height: 200,
-    child: Card(
-    elevation: 2,
-    color: note.color,
-    child: Padding(
-    padding: const EdgeInsets.all(16.0),
-    child: Text(note.content),
-    ),
-    ),
+        .map((note)=> GestureDetector(
+    onTap: (){
+      Navigator.pushNamed(context, '/note_detail_page',
+    arguments: note,
+    );
+    },
+    child: SizedBox(
+      width: 200,
+      height: 200,
+      child: Card(
+        elevation: 2,
+        color: note.color,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(note.content),
+        ),
+      ),
+        ),
     ))
-    .toList(),
+        .toList(),
+    )
+
     ),
 
     ),
     )
 
-    ),
     ],
     ),
     ),
@@ -166,7 +174,9 @@ class SchedulingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(child: Text("SchedulingPage"));
   }
-}class MoodJournalingPage extends StatelessWidget {
+}
+
+class MoodJournalingPage extends StatelessWidget {
   const MoodJournalingPage({super.key});
 
   @override
