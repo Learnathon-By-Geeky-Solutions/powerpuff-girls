@@ -12,7 +12,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
 
     late Note note;
     final TextEditingController _controller = TextEditingController();
-    bool _isPalleteExpanded=false;
+    bool _isPaletteExpanded=false;
     bool _isTrayExpanded=false;
     @override
     void didChangeDependencies() {
@@ -37,10 +37,10 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
            color: Colors.blue,)),
            IconButton(onPressed: (){
              setState(() {
-               _isPalleteExpanded=!_isPalleteExpanded;
+               _isPaletteExpanded=!_isPaletteExpanded;
              });
            }, icon: Icon(Icons.palette_outlined,
-           color: _isPalleteExpanded?Colors.white:Colors.black,)),
+           color: _isPaletteExpanded?Colors.white:Colors.black,)),
            IconButton(onPressed: _saveNote, icon: Icon(Icons.save,
            color: Colors.purpleAccent,)),
          ],
@@ -48,12 +48,13 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
     body:
               Column(
                 children: [
+                  Padding(padding: EdgeInsets.only(top: 10)),
                   AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
-                      height: _isPalleteExpanded?60:0,
-                      // width: 400,
+                      height: _isPaletteExpanded?60:0,
+                      width: 250,
                       color: Colors.purpleAccent,
-                      child: _isPalleteExpanded ?
+                      child: _isPaletteExpanded ?
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -78,52 +79,59 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                       controller: _controller,
                       maxLines: null,
                       decoration: InputDecoration(
-                        border:OutlineInputBorder(),
+                        // border:OutlineInputBorder(),
 
                       ),
                     ),
                   ),
-                  Positioned(
-                    bottom: 200,
-                    right: 100,
-                    child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                            height: _isTrayExpanded?250:0,
-                            width: 60,
-                            color: Colors.purpleAccent,
-                            child: _isTrayExpanded ?
-                            Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                            IconButton(onPressed: (){}, icon: Icon(Icons.file_copy_outlined,),
-                            color: Colors.greenAccent,),
-                            IconButton(onPressed: (){}, icon: Icon(Icons.pie_chart,),
-                            color: Colors.orangeAccent,),
-                            IconButton(onPressed: (){}, icon: Icon(Icons.picture_as_pdf,),
-                            color: Colors.redAccent,),
-                            IconButton(onPressed: (){}, icon: Icon(Icons.share,),
-                            color: Colors.greenAccent,),
-                            IconButton(onPressed: (){}, icon: Icon(Icons.add_a_photo,),
-                            color: Colors.cyanAccent,),
-                            IconButton(onPressed: (){}, icon: Icon(Icons.handyman,),
-                            color: Colors.black,),
 
-                            ],
-                            ):null,
-                            ),
-                  ),
                 ],
               ),
 
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        setState(() {
-          _isTrayExpanded=!_isTrayExpanded;
-        });
-      },
-      backgroundColor: Colors.cyanAccent,
-        child: Icon(Icons.arrow_circle_up_rounded,
-        color: Colors.white,),
-      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Positioned(
+            // bottom: 300,
+            // right: 200,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              height: _isTrayExpanded?250:0,
+              width: 60,
+              color: Colors.cyanAccent,
+              child: _isTrayExpanded ?
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(onPressed: (){}, icon: Icon(Icons.file_copy_outlined,),
+                    color: Colors.purpleAccent,),
+                  IconButton(onPressed: (){}, icon: Icon(Icons.pie_chart,),
+                    color: Colors.orangeAccent,),
+                  IconButton(onPressed: (){}, icon: Icon(Icons.picture_as_pdf,),
+                    color: Colors.purpleAccent,),
+                  IconButton(onPressed: (){}, icon: Icon(Icons.share,),
+                    color: Colors.orangeAccent,),
+                  IconButton(onPressed: (){}, icon: Icon(Icons.add_a_photo,),
+                    color: Colors.purpleAccent,),
+                  IconButton(onPressed: (){}, icon: Icon(Icons.handyman,),
+                    color: Colors.orangeAccent,),
+
+                ],
+              ):null,
+            ),
+          ),
+          Padding(padding: EdgeInsets.only(bottom: 5)),
+          FloatingActionButton(onPressed: (){
+            setState(() {
+              _isTrayExpanded=!_isTrayExpanded;
+            });
+          },
+            backgroundColor: Colors.cyanAccent,
+            child: Icon(Icons.arrow_circle_up_rounded,
+              color: Colors.white,),
+          ),
+          ],
+      )
     );
   }
 }
