@@ -46,92 +46,104 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
          ],
              ),
     body:
-              Column(
+              Stack(
                 children: [
-                  Padding(padding: EdgeInsets.only(top: 10)),
-                  AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      height: _isPaletteExpanded?60:0,
-                      width: 250,
-                      color: Colors.purpleAccent,
-                      child: _isPaletteExpanded ?
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            IconButton(onPressed: (){}, icon: Icon(Icons.format_bold,),
-                            color: Colors.black,),
-                            IconButton(onPressed: (){}, icon: Icon(Icons.format_italic,),
+                  Column(
+                  children: [
+                    Padding(padding: EdgeInsets.only(top: 10)),
+                    AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        height: _isPaletteExpanded?60:0,
+                        width: 250,
+                        color: Colors.purpleAccent,
+                        child: _isPaletteExpanded ?
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(onPressed: (){}, icon: Icon(Icons.format_bold,),
                               color: Colors.black,),
-                            IconButton(onPressed: (){}, icon: Icon(Icons.format_underline,),
-                              color: Colors.black,),
-                            IconButton(onPressed: (){}, icon: Icon(Icons.format_paint,),
-                              color: Colors.white,),
-                            IconButton(onPressed: (){}, icon: Icon(Icons.format_list_bulleted,),
-                              color: Colors.red,),
-                            IconButton(onPressed: (){}, icon: Icon(Icons.format_list_numbered,),
-                              color: Colors.red,),
+                              IconButton(onPressed: (){}, icon: Icon(Icons.format_italic,),
+                                color: Colors.black,),
+                              IconButton(onPressed: (){}, icon: Icon(Icons.format_underline,),
+                                color: Colors.black,),
+                              IconButton(onPressed: (){}, icon: Icon(Icons.format_paint,),
+                                color: Colors.white,),
+                              IconButton(onPressed: (){}, icon: Icon(Icons.format_list_bulleted,),
+                                color: Colors.red,),
+                              IconButton(onPressed: (){}, icon: Icon(Icons.format_list_numbered,),
+                                color: Colors.red,),
 
-                            ],
-                        ):null,
-                    ),
-                  Padding(padding: const EdgeInsets.all(16.0),
-                    child: TextField(
-                      controller: _controller,
-                      maxLines: null,
-                      decoration: InputDecoration(
-                        // border:OutlineInputBorder(),
+                              ],
+                          ):null,
+                      ),
+                    Padding(padding: const EdgeInsets.all(16.0),
+                      child: TextField(
+                        controller: _controller,
+                        maxLines: null,
+                        decoration: InputDecoration(
+                          // border:OutlineInputBorder(),
 
+                        ),
                       ),
                     ),
-                  ),
 
-                ],
+
+                  ],
+                ),
+                  Positioned(
+                    bottom: 80,
+                    right: 16,
+                    child: ClipRect(
+                      child: LayoutBuilder(
+                        builder: (context,constraints){
+                          double trayContentHeight=6*40.0;
+                          final maxAllowedHeight=MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top-kToolbarHeight-80;
+                          trayContentHeight=trayContentHeight.clamp(0, maxAllowedHeight);
+                        return AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          height: _isTrayExpanded?trayContentHeight:0,
+                          width: 60,
+                          color: Colors.cyanAccent,
+                          child: _isTrayExpanded ?
+                          SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(onPressed: (){}, icon: Icon(Icons.file_copy_outlined,),
+                                  color: Colors.purpleAccent,),
+                                IconButton(onPressed: (){}, icon: Icon(Icons.pie_chart,),
+                                  color: Colors.orangeAccent,),
+                                IconButton(onPressed: (){}, icon: Icon(Icons.picture_as_pdf,),
+                                  color: Colors.purpleAccent,),
+                                IconButton(onPressed: (){}, icon: Icon(Icons.share,),
+                                  color: Colors.orangeAccent,),
+                                IconButton(onPressed: (){}, icon: Icon(Icons.add_a_photo,),
+                                  color: Colors.purpleAccent,),
+                                IconButton(onPressed: (){}, icon: Icon(Icons.handyman,),
+                                  color: Colors.orangeAccent,),
+
+                              ],
+                            ),
+                          ):null,
+                        );
+                      },
+                                        ),
+                    ),
+                  ),
+    ],
               ),
 
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Positioned(
-            // bottom: 300,
-            // right: 200,
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              height: _isTrayExpanded?250:0,
-              width: 60,
-              color: Colors.cyanAccent,
-              child: _isTrayExpanded ?
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(onPressed: (){}, icon: Icon(Icons.file_copy_outlined,),
-                    color: Colors.purpleAccent,),
-                  IconButton(onPressed: (){}, icon: Icon(Icons.pie_chart,),
-                    color: Colors.orangeAccent,),
-                  IconButton(onPressed: (){}, icon: Icon(Icons.picture_as_pdf,),
-                    color: Colors.purpleAccent,),
-                  IconButton(onPressed: (){}, icon: Icon(Icons.share,),
-                    color: Colors.orangeAccent,),
-                  IconButton(onPressed: (){}, icon: Icon(Icons.add_a_photo,),
-                    color: Colors.purpleAccent,),
-                  IconButton(onPressed: (){}, icon: Icon(Icons.handyman,),
-                    color: Colors.orangeAccent,),
-
-                ],
-              ):null,
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(bottom: 5)),
+      floatingActionButton:
           FloatingActionButton(onPressed: (){
             setState(() {
               _isTrayExpanded=!_isTrayExpanded;
             });
           },
             backgroundColor: Colors.cyanAccent,
-            child: Icon(Icons.arrow_circle_up_rounded,
+            child: Icon(_isTrayExpanded? Icons.arrow_circle_down_rounded:Icons.arrow_circle_up_rounded,
               color: Colors.white,),
           ),
-          ],
-      )
     );
   }
 }

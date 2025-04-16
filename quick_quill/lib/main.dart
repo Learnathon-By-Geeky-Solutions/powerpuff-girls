@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quick_quill/log_in.dart';
 import 'package:quick_quill/noteMain.dart';
 import 'package:quick_quill/sign_up.dart';
+import 'package:quick_quill/welcome_page_animation.dart';
 
 import 'mainScreen.dart';
 import 'noteDetails.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
           '/scheduling_page': (context) => SchedulingPage(),
           '/mood_journaling_page': (context) => MoodJournalingPage(),
           '/note_detail_page': (context) => NoteDetailPage(),
+          '/welcome_page': (context) => WelcomePageAnimation(),
         }
     );
   }
